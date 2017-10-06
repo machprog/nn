@@ -23,7 +23,7 @@ TrainData generateData(CurveFunc fun, double min, double max, int numPoints)
 int main(void)
 {
     // generate the training data
-    TrainData data = generateData(sin, -10, 10, 50);
+    TrainData data = generateData(sin, -3, 3, 30);
     
     // build a network
     NN network;
@@ -32,9 +32,11 @@ int main(void)
     network.init(structure,funs);
     
     // train & output
+    int n = 0;
     while (network.RMS > 0.03) {
         network.train(data);
-        cout << "RMS : " << network.RMS << endl;
+        if ( (n++ % 100) == 0)
+            cout << "RMS : " << network.RMS << endl;
     }
     cout << "Done." << endl;
     return 0;
